@@ -1,6 +1,5 @@
 package com.example.yunsuphong.converttemp;
 
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -25,16 +24,11 @@ public class MainActivity extends ActionBarActivity {
             public void onProgressChanged(SeekBar tempBar, int progress, boolean fromUser) {
                 int celsius = progress;
                 String degree = "\u00B0";	//Unicode degree symbol
-                //String stringFormat = getString(R.string.stringFormat);
-                Resources res = getResources();
-                textView.setText(String.format(res.getString(R.string.stringFormat),
+                textView.setText(String.format(getString(R.string.stringFormat),
                         32f + celsius * 9f / 5f, degree, celsius, degree));
-
-                float[] hsvColor = {0, 1, 1};
-                // generate only hue component in range [0, 360),
-                // leaving saturation and brightness maximum possible
-                hsvColor[0] = 360f * progress / 100;
-                tempBar.setBackgroundColor(Color.HSVToColor(hsvColor));
+                int red = 255 * progress / 100;
+                int blue = 255 * (100 - progress) / 100;
+                tempBar.setBackgroundColor(Color.argb(255, red, 0, blue));
             }
 
             @Override
